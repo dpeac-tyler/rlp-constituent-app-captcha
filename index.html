@@ -205,7 +205,7 @@
 
           <div class="usa-form-group">
             <label class="usa-label" for="modal-state-program">State / Program <span class="field-required">Required</span></label>
-            <select class="usa-select" id="modal-state-program" name="modal-state-program">
+            <select class="usa-select" id="modal-state-program" name="modal-state-program" disabled>
               <option value="">Please Select</option>
               <option value="arkansas">Arkansas</option>
               <option value="illinois">Illinois</option>
@@ -341,6 +341,16 @@
         continueBtn.disabled = !isValid;
       }
 
+      recaptchaCheckbox.addEventListener('change', function () {
+        stateSelect.disabled = !recaptchaCheckbox.checked;
+        if (!recaptchaCheckbox.checked) {
+          stateSelect.value = '';
+          agencySelect.disabled = true;
+          agencySelect.value = '';
+        }
+        updateContinueState();
+      });
+
       stateSelect.addEventListener('change', function () {
         agencySelect.disabled = !stateSelect.value;
         if (!stateSelect.value) {
@@ -350,7 +360,6 @@
       });
 
       agencySelect.addEventListener('change', updateContinueState);
-      recaptchaCheckbox.addEventListener('change', updateContinueState);
 
       continueBtn.addEventListener('click', function () {
         modal.setAttribute('hidden', '');
