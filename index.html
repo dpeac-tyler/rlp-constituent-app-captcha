@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Constituent Application - PhotoID - Information Collection</title>
+  <title>Complaint Case Intake - Select Case Subject</title>
   <link rel="stylesheet" href="css/styles.css" />
   <style>
     /* Fix the CSS variable typo in styles.css for step labels */
@@ -49,109 +49,14 @@
     .application-card {
       border: 1px solid #aeb0b5;
       background-color: #fff;
-      padding: 0 2.4rem 2.4rem;
+      padding: 2.4rem;
       margin-top: 2rem;
       margin-bottom: 4rem;
-    }
-
-    /* ===== Section Tabs (sub-step tab strip) ===== */
-    .section-tabs {
-      display: flex;
-      gap: 4px;
-      margin-top: 2rem;
-    }
-
-    .section-tab {
-      flex: 1;
-      max-width: 24rem;
-      padding: 1rem 0 1.6rem;
-      font-family: "Public Sans Web", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-      font-size: 1.6rem;
-      font-weight: 600;
-      color: #919191;
-      background: none;
-      border: none;
-      border-top: 8px solid #c9c9c9;
-      cursor: pointer;
-      text-align: left;
-      line-height: 1.4;
-    }
-
-    .section-tab.active {
-      color: #005ea2;
-      border-top-color: #005ea2;
-      font-weight: bold;
-    }
-
-    .section-tab.visited {
-      color: #162e51;
-      border-top-color: #162e51;
-    }
-
-    .section-tab:hover:not(.active) {
-      color: #1b1b1b;
-    }
-
-    .section-tab:focus {
-      outline: 0.25rem solid #2491ff;
-      outline-offset: -2px;
-    }
-
-    /* ===== Tab Panels ===== */
-    .section-tab-panel {
-      display: none;
-    }
-
-    .section-tab-panel.active {
-      display: block;
-    }
-
-    /* ===== Sub-step Heading ("1 of 4 Personal Information") ===== */
-    .substep-heading {
-      display: flex;
-      align-items: center;
-      gap: 0.6rem;
-      margin: 2rem 0 4.4rem;
-    }
-
-    .substep-heading__counter {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      width: 3rem;
-      height: 3rem;
-      min-width: 3rem;
-      border-radius: 50%;
-      background-color: #005ea2;
-      color: #fff;
-      font-size: 1.7rem;
-      font-weight: 700;
-      line-height: 1;
-    }
-
-    .substep-heading__total {
-      font-size: 1.8rem;
-      font-weight: 400;
-      color: #005ea2;
-    }
-
-    .substep-heading__text {
-      font-size: 2rem;
-      font-weight: 700;
-      color: #1b1b1b;
     }
 
     /* ===== Form Groups ===== */
     .usa-form-group {
       margin-bottom: 2rem;
-    }
-
-    /* ===== Action Buttons Bar ===== */
-    .form-actions {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 1.6rem 0;
     }
 
     /* ===== Constituent Footer ===== */
@@ -177,10 +82,19 @@
       font-size: 1.6rem;
     }
 
-    /* Hide native calendar icon visually but keep it interactive */
-    input[type="date"]::-webkit-calendar-picker-indicator {
-      opacity: 0;
-      cursor: pointer;
+    /* Give segments a fixed width instead of stretching to fill the row now that there are fewer steps */
+    .usa-step-indicator__segments {
+      justify-content: flex-start;
+    }
+
+    .usa-step-indicator__segment {
+      flex: 0 0 22rem;
+      padding-right: 0;
+    }
+
+    .usa-step-indicator__segment:last-child {
+      flex: 0 0 auto;
+      padding-right: 0;
     }
 
     /* Constituent page spacing overrides */
@@ -217,16 +131,103 @@
       font-weight: 700;
     }
 
-    .date-picker-wrapper .usa-input {
-      padding-right: 0;
+    /* ===== Mock reCAPTCHA ===== */
+    .recaptcha-box {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      width: 30.4rem;
+      padding: 1.2rem 1.6rem;
+      border: 1px solid #d3d3d3;
+      border-radius: 0.3rem;
+      background-color: #f9f9f9;
     }
 
-    
+    .recaptcha-box__left {
+      display: flex;
+      align-items: center;
+      gap: 1.2rem;
+    }
+
+    .recaptcha-box__checkbox {
+      width: 2.8rem;
+      height: 2.8rem;
+      margin: 0;
+    }
+
+    .recaptcha-box__label {
+      font-size: 1.5rem;
+      color: #1b1b1b;
+    }
+
+    .recaptcha-box__brand {
+      text-align: center;
+      font-size: 1rem;
+      line-height: 1.3;
+      color: #71767a;
+    }
+
+    .recaptcha-box__brand strong {
+      display: block;
+      font-size: 1.7rem;
+      font-style: italic;
+      color: #555;
+    }
+
   </style>
 </head>
 
 <body>
   <div class="app-container">
+
+    <!-- Person Verification Modal (blocks the page until completed) -->
+    <div class="modal" id="verification-modal" role="dialog" aria-modal="true" aria-labelledby="verification-modal-title">
+      <div class="modal-overlay"></div>
+      <div class="modal-content">
+        <div class="modal-header">
+          <h2 class="modal-title" id="verification-modal-title">Complaint Case Intake Verification</h2>
+        </div>
+        <div class="modal-body">
+          <p style="margin-top: 0; font-size: 1.6rem;">Before we begin, verify you're a person. This protects licensee information and prevents automated submissions.</p>
+
+          <div class="usa-form-group">
+            <div class="recaptcha-box">
+              <div class="recaptcha-box__left">
+                <input type="checkbox" id="recaptcha-checkbox" class="recaptcha-box__checkbox" />
+                <label for="recaptcha-checkbox" class="recaptcha-box__label">I'm not a robot</label>
+              </div>
+              <div class="recaptcha-box__brand">
+                <strong>reCAPTCHA</strong>
+                Privacy - Terms
+              </div>
+            </div>
+          </div>
+
+          <div class="usa-form-group">
+            <label class="usa-label" for="modal-state-program">State / Program <span class="field-required">Required</span></label>
+            <select class="usa-select" id="modal-state-program" name="modal-state-program">
+              <option value="">Please Select</option>
+              <option value="arkansas">Arkansas</option>
+              <option value="illinois">Illinois</option>
+              <option value="wisconsin">Wisconsin</option>
+            </select>
+          </div>
+
+          <div class="usa-form-group">
+            <label class="usa-label" for="modal-agency">Agency <span class="field-required">Required</span></label>
+            <select class="usa-select" id="modal-agency" name="modal-agency" disabled>
+              <option value="">Please Select</option>
+              <option value="agency-1">Agency 1</option>
+              <option value="agency-2">Agency 2</option>
+              <option value="agency-3">Agency 3</option>
+            </select>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="usa-button" id="verification-continue-btn" disabled>Continue</button>
+        </div>
+      </div>
+    </div>
 
     <!-- Header -->
     <header class="constituent-header">
@@ -239,35 +240,23 @@
 
     <main id="main-content" class="grid-container">
 
-      <!-- Top 8-step progress indicator -->
+      <!-- Top 5-step progress indicator -->
       <div class="usa-step-indicator margin-top-4" aria-label="Application progress">
         <ol class="usa-step-indicator__segments">
           <li class="usa-step-indicator__segment usa-step-indicator__segment--current">
-            <span class="usa-step-indicator__segment-label">Information Collection</span>
+            <span class="usa-step-indicator__segment-label">Select Case Subject</span>
           </li>
           <li class="usa-step-indicator__segment">
-            <span class="usa-step-indicator__segment-label">Questions</span>
+            <span class="usa-step-indicator__segment-label">Your Information</span>
           </li>
           <li class="usa-step-indicator__segment">
-            <span class="usa-step-indicator__segment-label">Fees</span>
+            <span class="usa-step-indicator__segment-label">Complaint Details</span>
           </li>
           <li class="usa-step-indicator__segment">
-            <span class="usa-step-indicator__segment-label">Document Upload</span>
+            <span class="usa-step-indicator__segment-label">Attestation</span>
           </li>
           <li class="usa-step-indicator__segment">
-            <span class="usa-step-indicator__segment-label">Information Summary</span>
-          </li>
-          <li class="usa-step-indicator__segment">
-            <span class="usa-step-indicator__segment-label">Photo ID</span>
-          </li>
-          <li class="usa-step-indicator__segment">
-            <span class="usa-step-indicator__segment-label">Electronic Signature</span>
-          </li>
-          <li class="usa-step-indicator__segment">
-            <span class="usa-step-indicator__segment-label">Payment</span>
-          </li>
-          <li class="usa-step-indicator__segment">
-            <span class="usa-step-indicator__segment-label">Confirmation</span>
+            <span class="usa-step-indicator__segment-label">Review & Confirm</span>
           </li>
         </ol>
       </div>
@@ -276,20 +265,20 @@
       <div class="usa-step-indicator__header">
         <h1 class="usa-step-indicator__heading">
           <span class="usa-step-indicator__heading-counter">1</span>
-          <span class="usa-step-indicator__total-steps">of 9</span>
-          <span class="usa-step-indicator__heading-text">Information Collection</span>
+          <span class="usa-step-indicator__total-steps">of 5</span>
+          <span class="usa-step-indicator__heading-text">Select Case Subject</span>
         </h1>
       </div>
 
       <!-- Title / Description -->
       <div class="heading-url-row">
-        <h1 class="app-builder-content__heading">Constituent Application - PhotoID</h1>
+        <h1 class="app-builder-content__heading">Complaint Case Intake</h1>
         <div class="heading-url-row__url">
           <span>For more information visit:</span>
           <a href="#">agencyurl.com</a>
         </div>
       </div>
-      <p class="app-builder-content__text">Constituent Application - Photo ID description information</p>
+      <p class="app-builder-content__text">Search for the security guard company or individual against whom the complaint is being filed. If you cannot find a name in the search results, click Add Person below to manually add them to this case.</p>
 
       <!-- Instructions Accordion (expanded by default) -->
       <div class="usa-accordion usa-accordion--bordered" style="margin-top: 4rem; margin-bottom: 4rem;">
@@ -306,140 +295,26 @@
       <!-- Application Card -->
       <div class="application-card">
 
-          <!-- Sub-section Tab Strip -->
-          <div class="section-tabs" role="tablist" aria-label="Information sections">
-            <button class="section-tab visited" role="tab" aria-selected="false"
-              aria-controls="panel-personal" id="tab-personal">Personal Information</button>
-            <button class="section-tab visited" role="tab" aria-selected="false"
-              aria-controls="panel-contact" id="tab-contact">Contact Information</button>
-            <button class="section-tab visited" role="tab" aria-selected="false"
-              aria-controls="panel-mailing" id="tab-mailing">Mailing Address</button>
-            <button class="section-tab active" role="tab" aria-selected="true"
-              aria-controls="panel-identification" id="tab-identification">Identification Information</button>
-          </div>
+        <div class="usa-form-group">
+          <label class="usa-label" for="case-subject">Case Subject</label>
+          <input class="usa-input" id="case-subject" name="case-subject" type="text" />
+        </div>
 
-          <!-- Panel 1: Personal Information -->
-          <div class="section-tab-panel" id="panel-personal" role="tabpanel" aria-labelledby="tab-personal">
-            <div class="substep-heading">
-              <span class="substep-heading__counter">1</span>
-              <span class="substep-heading__total">of 4</span>
-              <span class="substep-heading__text">Personal Information</span>
-            </div>
+        <div class="usa-form-group">
+          <label class="usa-label" for="license-number">License Number</label>
+          <input class="usa-input" id="license-number" name="license-number" type="text" />
+        </div>
 
-            <div class="usa-form-group">
-              <label class="usa-label" for="prefix">Prefix</label>
-              <select class="usa-select" id="prefix" name="prefix">
-                <option value="">Please Select</option>
-                <option value="mr">Mr.</option>
-                <option value="mrs">Mrs.</option>
-                <option value="ms">Ms.</option>
-                <option value="dr">Dr.</option>
-                <option value="prof">Prof.</option>
-              </select>
-            </div>
+        <div style="display: flex; gap: 1rem;">
+          <button type="button" class="usa-button">Search</button>
+          <button type="button" class="usa-button usa-button--outline">Clear</button>
+        </div>
 
-            <div class="usa-form-group">
-              <label class="usa-label" for="first-name">First Name <span class="field-required">Required</span></label>
-              <input class="usa-input" id="first-name" name="first-name" type="text" autocomplete="given-name" />
-            </div>
-
-            <div class="usa-form-group">
-              <label class="usa-label" for="middle-name">Middle Name</label>
-              <input class="usa-input" id="middle-name" name="middle-name" type="text" autocomplete="additional-name" />
-            </div>
-
-            <div class="usa-form-group">
-              <label class="usa-label" for="last-name">Last Name <span class="field-required">Required</span></label>
-              <input class="usa-input" id="last-name" name="last-name" type="text" autocomplete="family-name" />
-            </div>
-          </div>
-
-          <!-- Panel 2: Contact Information -->
-          <div class="section-tab-panel" id="panel-contact" role="tabpanel" aria-labelledby="tab-contact">
-            <div class="substep-heading">
-              <span class="substep-heading__counter">2</span>
-              <span class="substep-heading__total">of 4</span>
-              <span class="substep-heading__text">Contact Information</span>
-            </div>
-
-            <div class="usa-form-group">
-              <label class="usa-label" for="phone">Phone Number <span class="field-required">Required</span></label>
-              <input class="usa-input" id="phone" name="phone" type="tel" autocomplete="tel" />
-            </div>
-
-            <div class="usa-form-group">
-              <label class="usa-label" for="email">Email Address <span class="field-required">Required</span></label>
-              <input class="usa-input" id="email" name="email" type="email" autocomplete="email" />
-            </div>
-
-            <div class="usa-form-group">
-              <label class="usa-label" for="email-confirm">Re-Enter Email Address <span class="field-required">Required</span></label>
-              <input class="usa-input" id="email-confirm" name="email-confirm" type="email" autocomplete="off" />
-            </div>
-          </div>
-
-          <!-- Panel 3: Mailing Address -->
-          <div class="section-tab-panel" id="panel-mailing" role="tabpanel" aria-labelledby="tab-mailing">
-            <div class="substep-heading">
-              <span class="substep-heading__counter">3</span>
-              <span class="substep-heading__total">of 4</span>
-              <span class="substep-heading__text">Mailing Address</span>
-            </div>
-
-            <div class="usa-form-group">
-              <label class="usa-label" for="address-line1">Address Line 1 <span class="field-required">Required</span></label>
-              <input class="usa-input" id="address-line1" name="address-line1" type="text" autocomplete="address-line1" />
-            </div>
-
-            <div class="usa-form-group">
-              <label class="usa-label" for="city">City <span class="field-required">Required</span></label>
-              <input class="usa-input" id="city" name="city" type="text" autocomplete="address-level2" />
-            </div>
-
-            <div class="usa-form-group">
-              <label class="usa-label" for="state">State <span class="field-required">Required</span></label>
-              <select class="usa-select" id="state" name="state" autocomplete="address-level1">
-                <option value="">Please Select</option>
-              </select>
-            </div>
-
-            <div class="usa-form-group">
-              <label class="usa-label" for="zip">ZIP Code <span class="field-required">Required</span></label>
-              <input class="usa-input" id="zip" name="zip" type="text" maxlength="10" autocomplete="postal-code" />
-            </div>
-          </div>
-
-          <!-- Panel 4: Identification Information -->
-          <div class="section-tab-panel active" id="panel-identification" role="tabpanel" aria-labelledby="tab-identification">
-            <div class="substep-heading">
-              <span class="substep-heading__counter">4</span>
-              <span class="substep-heading__total">of 4</span>
-              <span class="substep-heading__text">Identification Information</span>
-            </div>
-
-            <div class="usa-form-group">
-              <label class="usa-label" for="dob">Date of Birth <span class="field-required">Required</span></label>
-              <div class="date-picker-wrapper">
-                <input class="usa-input" id="dob" name="dob" type="date" autocomplete="bday" />
-                <button type="button" class="date-picker-button" aria-label="Open date picker">
-                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" fill="currentColor">
-                    <path d="M128 0c13.3 0 24 10.7 24 24l0 40 144 0 0-40c0-13.3 10.7-24 24-24s24 10.7 24 24l0 40 40 0c35.3 0 64 28.7 64 64l0 16 0 48 0 256c0 35.3-28.7 64-64 64L64 512c-35.3 0-64-28.7-64-64L0 192l0-48 0-16C0 92.7 28.7 64 64 64l40 0 0-40c0-13.3 10.7-24 24-24zM400 192L48 192l0 256c0 8.8 7.2 16 16 16l320 0c8.8 0 16-7.2 16-16l0-256zM128 296c0-13.3 10.7-24 24-24l144 0c13.3 0 24 10.7 24 24s-10.7 24-24 24l-144 0c-13.3 0-24-10.7-24-24zm0 80c0-13.3 10.7-24 24-24l80 0c13.3 0 24 10.7 24 24s-10.7 24-24 24l-80 0c-13.3 0-24-10.7-24-24z"/>
-                  </svg>
-                </button>
-              </div>
-            </div>
-          </div>
+        <div style="margin-top: 20px;">
+          <button type="button" class="usa-button">Add Person</button>
+        </div>
 
       </div><!-- end .application-card -->
-
-      <!-- Action Buttons (outside the card) -->
-      <div class="form-actions">
-        <button type="button" class="usa-button usa-button--secondary">Cancel</button>
-        <div style="display: flex; gap: 1rem;">
-          <button type="button" class="usa-button usa-button--outline" id="back-btn">Back</button>
-          <button type="button" class="usa-button" id="next-btn">Next</button>
-        </div>
-      </div>
 
     </main>
 
@@ -453,24 +328,37 @@
   </div>
 
   <script>
-    // Tab switching
-    document.querySelectorAll('.section-tab').forEach(function (tab) {
-      tab.addEventListener('click', function () {
-        document.querySelectorAll('.section-tab').forEach(function (t) {
-          t.classList.remove('active');
-          t.setAttribute('aria-selected', 'false');
-        });
-        document.querySelectorAll('.section-tab-panel').forEach(function (p) {
-          p.classList.remove('active');
-        });
-        this.classList.add('active');
-        this.setAttribute('aria-selected', 'true');
-        document.getElementById(this.getAttribute('aria-controls')).classList.add('active');
+    // Person verification modal gating
+    (function () {
+      var modal = document.getElementById('verification-modal');
+      var recaptchaCheckbox = document.getElementById('recaptcha-checkbox');
+      var stateSelect = document.getElementById('modal-state-program');
+      var agencySelect = document.getElementById('modal-agency');
+      var continueBtn = document.getElementById('verification-continue-btn');
+
+      function updateContinueState() {
+        var isValid = recaptchaCheckbox.checked && stateSelect.value && agencySelect.value;
+        continueBtn.disabled = !isValid;
+      }
+
+      stateSelect.addEventListener('change', function () {
+        agencySelect.disabled = !stateSelect.value;
+        if (!stateSelect.value) {
+          agencySelect.value = '';
+        }
+        updateContinueState();
       });
-    });
+
+      agencySelect.addEventListener('change', updateContinueState);
+      recaptchaCheckbox.addEventListener('change', updateContinueState);
+
+      continueBtn.addEventListener('click', function () {
+        modal.setAttribute('hidden', '');
+      });
+    })();
 
     // Step indicator navigation
-    var stepPages = ['index.html', 'questions.html', 'fees.html', 'document-upload.html', 'information-summary.html', 'photo-id.html', 'electronic-signature.html'];
+    var stepPages = ['index.html'];
     document.querySelectorAll('.usa-step-indicator__segment').forEach(function (segment, i) {
       if (stepPages[i]) {
         segment.style.cursor = 'pointer';
@@ -493,35 +381,6 @@
       });
     });
 
-    // Date picker button opens native picker
-    var datePickerBtn = document.querySelector('.date-picker-button');
-    if (datePickerBtn) {
-      datePickerBtn.addEventListener('click', function () {
-        var input = document.getElementById('dob');
-        if (input && input.showPicker) {
-          input.showPicker();
-        } else if (input) {
-          input.focus();
-        }
-      });
-    }
-
-    // Next/Back buttons advance or retreat through tabs; Next navigates to questions.html on last tab
-    var tabs = Array.from(document.querySelectorAll('.section-tab'));
-    document.getElementById('next-btn').addEventListener('click', function () {
-      var activeIndex = tabs.findIndex(function (t) { return t.classList.contains('active'); });
-      if (activeIndex < tabs.length - 1) {
-        tabs[activeIndex + 1].click();
-      } else {
-        window.location.href = 'questions.html';
-      }
-    });
-    document.getElementById('back-btn').addEventListener('click', function () {
-      var activeIndex = tabs.findIndex(function (t) { return t.classList.contains('active'); });
-      if (activeIndex > 0) {
-        tabs[activeIndex - 1].click();
-      }
-    });
   </script>
 </body>
 
