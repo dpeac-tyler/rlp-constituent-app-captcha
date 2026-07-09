@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Constituent Application - PhotoID - Information Summary</title>
+  <link rel="stylesheet" href="css/styles.css" />
+  <style>
+    /* Fix the CSS variable typo in styles.css for step labels */
+    :root {
+      --step-indicator-label-font-size: 1.6rem;
+    }
+
+    /* ===== Constituent Header ===== */
+    .constituent-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      padding: 1.6rem 3.2rem;
+      background: #fff;
+    }
+
+    .constituent-header__brand {
+      display: flex;
+      flex-direction: column;
+      gap: 0.4rem;
+    }
+
+    .constituent-header__logo {
+      max-height: 100px;
+      max-width: 100px;
+    }
+
+    .constituent-header__agency-name {
+      font-size: 2.2rem;
+      font-weight: 700;
+      color: #1b1b1b;
+      margin: 0;
+    }
+
+    .constituent-header__aside {
+      font-size: 1.4rem;
+      color: #71767a;
+      padding-top: 0.4rem;
+    }
+
+    /* ===== Action Buttons Bar ===== */
+    .form-actions {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1.6rem 0;
+    }
+
+    /* ===== Constituent Footer ===== */
+    .constituent-footer {
+      text-align: right;
+      background: #efefef;
+      padding-right: 4rem;
+    }
+
+    .constituent-footer p {
+      margin: 0.2rem 0;
+      font-size: 1.6rem;
+      color: #444;
+    }
+
+    .constituent-footer a {
+      color: #005ea2;
+      text-decoration: underline;
+    }
+
+    /* Keep step indicator labels visible on constituent page */
+    .usa-step-indicator__segment-label {
+      font-size: 1.6rem;
+    }
+
+    /* Constituent page spacing overrides */
+    .app-builder-content__heading {
+      border-bottom: none;
+      padding-bottom: 0;
+      margin: 0;
+    }
+
+    .heading-url-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      border-bottom: 1px solid #dfe1e2;
+      padding-bottom: 1rem;
+      margin-top: 8rem;
+      margin-bottom: 4rem;
+    }
+
+    .heading-url-row__url {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      gap: 0.6rem;
+      font-size: 1.6rem;
+      color: #71767a;
+      padding-bottom: 0.2rem;
+    }
+
+    .heading-url-row__url a {
+      color: #005ea2;
+      text-decoration: underline;
+      font-size: 1.6rem;
+      font-weight: 700;
+    }
+
+    .usa-checkbox__input:checked:disabled + .usa-checkbox__label::before {
+      background-color: #71767a;
+      border-color: #71767a;
+    }
+
+    .usa-checkbox__input:disabled + .usa-checkbox__label {
+      color: #454545;
+      cursor: not-allowed;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="app-container">
+
+    <!-- Header -->
+    <header class="constituent-header">
+      <div class="constituent-header__brand">
+        <img class="constituent-header__logo" src="assets/agency-logo.png" alt="Agency Logo" />
+        <p class="constituent-header__agency-name">Agency Name</p>
+      </div>
+      <div class="constituent-header__aside">Agency Name</div>
+    </header>
+
+    <main id="main-content" class="grid-container">
+
+      <!-- Top 8-step progress indicator -->
+      <div class="usa-step-indicator margin-top-4" aria-label="Application progress">
+        <ol class="usa-step-indicator__segments">
+          <li class="usa-step-indicator__segment usa-step-indicator__segment--complete">
+            <span class="usa-step-indicator__segment-label">Information Collection</span>
+          </li>
+          <li class="usa-step-indicator__segment usa-step-indicator__segment--complete">
+            <span class="usa-step-indicator__segment-label">Questions</span>
+          </li>
+          <li class="usa-step-indicator__segment usa-step-indicator__segment--complete">
+            <span class="usa-step-indicator__segment-label">Fees</span>
+          </li>
+          <li class="usa-step-indicator__segment usa-step-indicator__segment--complete">
+            <span class="usa-step-indicator__segment-label">Document Upload</span>
+          </li>
+          <li class="usa-step-indicator__segment usa-step-indicator__segment--current">
+            <span class="usa-step-indicator__segment-label">Information Summary</span>
+          </li>
+          <li class="usa-step-indicator__segment">
+            <span class="usa-step-indicator__segment-label">Photo ID</span>
+          </li>
+          <li class="usa-step-indicator__segment">
+            <span class="usa-step-indicator__segment-label">Electronic Signature</span>
+          </li>
+          <li class="usa-step-indicator__segment">
+            <span class="usa-step-indicator__segment-label">Payment</span>
+          </li>
+          <li class="usa-step-indicator__segment">
+            <span class="usa-step-indicator__segment-label">Confirmation</span>
+          </li>
+        </ol>
+      </div>
+
+      <!-- Step heading -->
+      <div class="usa-step-indicator__header">
+        <h1 class="usa-step-indicator__heading">
+          <span class="usa-step-indicator__heading-counter">5</span>
+          <span class="usa-step-indicator__total-steps">of 9</span>
+          <span class="usa-step-indicator__heading-text">Information Summary</span>
+        </h1>
+      </div>
+
+      <!-- Title / Description -->
+      <div class="heading-url-row">
+        <h1 class="app-builder-content__heading">Constituent Application - PhotoID</h1>
+        <div class="heading-url-row__url">
+          <span>For more information visit:</span>
+          <a href="#">agencyurl.com</a>
+        </div>
+      </div>
+      <p class="app-builder-content__text">Constituent Application - Photo ID description information</p>
+
+      <!-- Instructions Accordion (expanded by default) -->
+      <div class="usa-accordion usa-accordion--bordered" style="margin-top: 4rem; margin-bottom: 4rem;">
+        <h3 class="usa-accordion__heading">
+          <button type="button" class="usa-accordion__button" aria-expanded="true" aria-controls="instructions-content">
+            Instructions
+          </button>
+        </h3>
+        <div id="instructions-content" class="usa-accordion__content">
+          <p style="margin: 0; font-size: 1.6rem;">Get your UX license for only $5000 or More!</p>
+        </div>
+      </div>
+
+      <!-- Information Summary Blue Bar Container -->
+      <div class="preview-container" style="margin-bottom: 4rem;">
+        <div class="preview-container__header">Information Summary</div>
+        <div class="preview-container__body">
+          <p style="font-size: 1.6rem; margin: 0 0 2.4rem;">Here you can review the information entered in the application. Select Edit to make updates or changes to the information entered. If everything looks good, select the action button below to continue with the submission of your application.</p>
+          <h4 style="font-size: 1.8rem; font-weight: 700; color: #1b1b1b; margin: 0 0 1.6rem;">Application Information</h4>
+          <div style="padding-left: 0.8rem;">
+            <p style="font-size: 1.6rem; margin: 0 0 0.8rem;"><strong>Agency:</strong> Illinois Department of Natural Resources</p>
+            <p style="font-size: 1.6rem; margin: 0 0 0.8rem;"><strong>Form Number:</strong> 1</p>
+            <p style="font-size: 1.6rem; margin: 0 0 0.8rem;"><strong>License Type:</strong> UX License</p>
+            <p style="font-size: 1.6rem; margin: 0 0 0.8rem;"><strong>Application Type:</strong> Original (One)</p>
+            <p style="font-size: 1.6rem; margin: 0;"><strong>Application Title:</strong> Constituent Application - PhotoID</p>
+          </div>
+
+          <h4 style="font-size: 1.8rem; font-weight: 700; color: #1b1b1b; margin: 2.4rem 0 1.6rem;">Personal Information</h4>
+          <div style="padding-left: 0.8rem;">
+            <p style="font-size: 1.6rem; margin: 0 0 0.8rem;"><strong>First Name:</strong> John</p>
+            <p style="font-size: 1.6rem; margin: 0;"><strong>Last Name:</strong> Smith</p>
+          </div>
+
+          <h4 style="font-size: 1.8rem; font-weight: 700; color: #1b1b1b; margin: 2.4rem 0 1.6rem;">Contact Information</h4>
+          <div style="padding-left: 0.8rem;">
+            <p style="font-size: 1.6rem; margin: 0 0 0.8rem;"><strong>Phone Number:</strong> (555) 555-5555</p>
+            <p style="font-size: 1.6rem; margin: 0;"><strong>Email Address:</strong> test@test.gov</p>
+          </div>
+
+          <h4 style="font-size: 1.8rem; font-weight: 700; color: #1b1b1b; margin: 2.4rem 0 1.6rem;">Mailing Address</h4>
+          <div style="padding-left: 0.8rem;">
+            <p style="font-size: 1.6rem; margin: 0 0 0.8rem;"><strong>Address Line 1:</strong> 100 congress</p>
+            <p style="font-size: 1.6rem; margin: 0 0 0.8rem;"><strong>City:</strong> austin</p>
+            <p style="font-size: 1.6rem; margin: 0 0 0.8rem;"><strong>State:</strong> AL</p>
+            <p style="font-size: 1.6rem; margin: 0;"><strong>Zip Code:</strong> 99901</p>
+          </div>
+
+          <h4 style="font-size: 1.8rem; font-weight: 700; color: #1b1b1b; margin: 2.4rem 0 1.6rem;">Identification Information</h4>
+          <div style="padding-left: 0.8rem;">
+            <p style="font-size: 1.6rem; margin: 0;"><strong>Date of Birth:</strong> 01/01/####</p>
+          </div>
+
+          <div style="margin-top: 2.4rem;">
+            <button type="button" class="usa-button" onclick="window.location.href='index.html'">Edit</button>
+          </div>
+
+          <h4 style="font-size: 1.8rem; font-weight: 700; color: #1b1b1b; margin: 2.4rem 0 1.6rem;">Questions</h4>
+          <div style="padding-left: 0.8rem;">
+            <p style="font-size: 1.6rem; margin: 0 0 0.8rem;"><strong>Question 1:</strong> Answer 1</p>
+            <p style="font-size: 1.6rem; margin: 0 0 1.2rem;"><strong>Is this a yes/no question:</strong> Yes</p>
+            <div class="usa-checkbox">
+              <input class="usa-checkbox__input" id="summary-acknowledge" type="checkbox" checked disabled />
+              <label class="usa-checkbox__label" for="summary-acknowledge">You must acknowledge this before proceeding</label>
+            </div>
+          </div>
+
+          <div style="margin-top: 2.4rem;">
+            <button type="button" class="usa-button" onclick="window.location.href='questions.html'">Edit</button>
+          </div>
+
+          <h4 style="font-size: 1.8rem; font-weight: 700; color: #1b1b1b; margin: 2.4rem 0 1.6rem;">Fee Summary</h4>
+          <div>
+            <div style="text-align: right; margin-bottom: 1.6rem;">
+              <span style="font-size: 1.6rem; font-weight: 700;">Price</span>
+            </div>
+           
+            <div style="display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 2rem;">
+              <span style="font-size: 1.6rem; font-weight: 700;">Application Fee Name</span>
+              <span style="font-size: 1.6rem;">$10.00</span>
+            </div>
+            <hr style="border: none; border-top: 1px solid #dfe1e2; margin: 0 0 2rem;" />
+            <div style="display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 2rem;">
+              <span style="font-size: 1.6rem; font-weight: 700;">Total</span>
+              <span style="font-size: 1.6rem; font-weight: 700;">$10.00</span>
+            </div>
+            <hr style="border: none; border-top: 1px solid #dfe1e2; margin: 0;" />
+          </div>
+
+          <div style="margin-top: 2.4rem;">
+            <button type="button" class="usa-button" onclick="window.location.href='fees.html'">Edit</button>
+          </div>
+
+          <h4 style="font-size: 1.8rem; font-weight: 700; color: #1b1b1b; margin: 2.4rem 0 1.6rem;">Document Upload</h4>
+          <table class="usa-table">
+            <thead>
+              <tr>
+                <th scope="col">Document Type/Sub Type</th>
+                <th scope="col">Document Notes</th>
+                <th scope="col">Filename</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Reference Document</td>
+                <td></td>
+                <td>reference-doc.pdf</td>
+              </tr>
+            </tbody>
+          </table>
+
+          <div style="margin-top: 2.4rem;">
+            <button type="button" class="usa-button" onclick="window.location.href='document-upload.html'">Edit</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Action Buttons -->
+      <div class="form-actions">
+        <button type="button" class="usa-button usa-button--secondary">Cancel</button>
+        <div style="display: flex; gap: 1rem;">
+          <button type="button" class="usa-button usa-button--outline" onclick="window.location.href='document-upload.html'">Back</button>
+          <button type="button" class="usa-button" onclick="window.location.href='photo-id.html'">Next</button>
+        </div>
+      </div>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="constituent-footer">
+      <p>Agency Name</p>
+      <p><a href="tel:9858858441">(985) 885-8441</a></p>
+      <p><a href="mailto:lisa.benavides@egov.com">lisa.benavides@egov.com</a></p>
+    </footer>
+
+  </div>
+
+  <script>
+    // Step indicator navigation
+    var stepPages = ['index.html', 'questions.html', 'fees.html', 'document-upload.html', 'information-summary.html', 'photo-id.html', 'electronic-signature.html'];
+    document.querySelectorAll('.usa-step-indicator__segment').forEach(function (segment, i) {
+      if (stepPages[i]) {
+        segment.style.cursor = 'pointer';
+        segment.addEventListener('click', function () { window.location.href = stepPages[i]; });
+      }
+    });
+
+    // Accordion toggle
+    document.querySelectorAll('.usa-accordion__button').forEach(function (button) {
+      button.addEventListener('click', function () {
+        var expanded = this.getAttribute('aria-expanded') === 'true';
+        var content = document.getElementById(this.getAttribute('aria-controls'));
+        if (expanded) {
+          this.setAttribute('aria-expanded', 'false');
+          content.setAttribute('hidden', '');
+        } else {
+          this.setAttribute('aria-expanded', 'true');
+          content.removeAttribute('hidden');
+        }
+      });
+    });
+  </script>
+</body>
+
+</html>

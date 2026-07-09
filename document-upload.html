@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Constituent Application - PhotoID - Document Upload</title>
+  <link rel="stylesheet" href="css/styles.css" />
+  <style>
+    /* Fix the CSS variable typo in styles.css for step labels */
+    :root {
+      --step-indicator-label-font-size: 1.6rem;
+    }
+
+    /* ===== Constituent Header ===== */
+    .constituent-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      padding: 1.6rem 3.2rem;
+      background: #fff;
+    }
+
+    .constituent-header__brand {
+      display: flex;
+      flex-direction: column;
+      gap: 0.4rem;
+    }
+
+    .constituent-header__logo {
+      max-height: 100px;
+      max-width: 100px;
+    }
+
+    .constituent-header__agency-name {
+      font-size: 2.2rem;
+      font-weight: 700;
+      color: #1b1b1b;
+      margin: 0;
+    }
+
+    .constituent-header__aside {
+      font-size: 1.4rem;
+      color: #71767a;
+      padding-top: 0.4rem;
+    }
+
+    /* ===== Action Buttons Bar ===== */
+    .form-actions {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1.6rem 0;
+    }
+
+    /* ===== Constituent Footer ===== */
+    .constituent-footer {
+      text-align: right;
+      background: #efefef;
+      padding-right: 4rem;
+    }
+
+    .constituent-footer p {
+      margin: 0.2rem 0;
+      font-size: 1.6rem;
+      color: #444;
+    }
+
+    .constituent-footer a {
+      color: #005ea2;
+      text-decoration: underline;
+    }
+
+    /* Keep step indicator labels visible on constituent page */
+    .usa-step-indicator__segment-label {
+      font-size: 1.6rem;
+    }
+
+    /* Constituent page spacing overrides */
+    .app-builder-content__heading {
+      border-bottom: none;
+      padding-bottom: 0;
+      margin: 0;
+    }
+
+    .heading-url-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      border-bottom: 1px solid #dfe1e2;
+      padding-bottom: 1rem;
+      margin-top: 8rem;
+      margin-bottom: 4rem;
+    }
+
+    .heading-url-row__url {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      gap: 0.6rem;
+      font-size: 1.6rem;
+      color: #71767a;
+      padding-bottom: 0.2rem;
+    }
+
+    .heading-url-row__url a {
+      color: #005ea2;
+      text-decoration: underline;
+      font-size: 1.6rem;
+      font-weight: 700;
+    }
+
+    .usa-textarea:disabled {
+      background-color: #f0f0f0;
+      color: #454545;
+      cursor: not-allowed;
+      border-color: #c9c9c9;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="app-container">
+
+    <!-- Header -->
+    <header class="constituent-header">
+      <div class="constituent-header__brand">
+        <img class="constituent-header__logo" src="assets/agency-logo.png" alt="Agency Logo" />
+        <p class="constituent-header__agency-name">Agency Name</p>
+      </div>
+      <div class="constituent-header__aside">Agency Name</div>
+    </header>
+
+    <main id="main-content" class="grid-container">
+
+      <!-- Top 8-step progress indicator -->
+      <div class="usa-step-indicator margin-top-4" aria-label="Application progress">
+        <ol class="usa-step-indicator__segments">
+          <li class="usa-step-indicator__segment usa-step-indicator__segment--complete">
+            <span class="usa-step-indicator__segment-label">Information Collection</span>
+          </li>
+          <li class="usa-step-indicator__segment usa-step-indicator__segment--complete">
+            <span class="usa-step-indicator__segment-label">Questions</span>
+          </li>
+          <li class="usa-step-indicator__segment usa-step-indicator__segment--complete">
+            <span class="usa-step-indicator__segment-label">Fees</span>
+          </li>
+          <li class="usa-step-indicator__segment usa-step-indicator__segment--current">
+            <span class="usa-step-indicator__segment-label">Document Upload</span>
+          </li>
+          <li class="usa-step-indicator__segment">
+            <span class="usa-step-indicator__segment-label">Information Summary</span>
+          </li>
+          <li class="usa-step-indicator__segment">
+            <span class="usa-step-indicator__segment-label">Photo ID</span>
+          </li>
+          <li class="usa-step-indicator__segment">
+            <span class="usa-step-indicator__segment-label">Electronic Signature</span>
+          </li>
+          <li class="usa-step-indicator__segment">
+            <span class="usa-step-indicator__segment-label">Payment</span>
+          </li>
+          <li class="usa-step-indicator__segment">
+            <span class="usa-step-indicator__segment-label">Confirmation</span>
+          </li>
+        </ol>
+      </div>
+
+      <!-- Step heading -->
+      <div class="usa-step-indicator__header">
+        <h1 class="usa-step-indicator__heading">
+          <span class="usa-step-indicator__heading-counter">4</span>
+          <span class="usa-step-indicator__total-steps">of 9</span>
+          <span class="usa-step-indicator__heading-text">Document Upload</span>
+        </h1>
+      </div>
+
+      <!-- Title / Description -->
+      <div class="heading-url-row">
+        <h1 class="app-builder-content__heading">Constituent Application - PhotoID</h1>
+        <div class="heading-url-row__url">
+          <span>For more information visit:</span>
+          <a href="#">agencyurl.com</a>
+        </div>
+      </div>
+      <p class="app-builder-content__text">Constituent Application - Photo ID description information</p>
+
+      <!-- Instructions Accordion (expanded by default) -->
+      <div class="usa-accordion usa-accordion--bordered" style="margin-top: 4rem; margin-bottom: 4rem;">
+        <h3 class="usa-accordion__heading">
+          <button type="button" class="usa-accordion__button" aria-expanded="true" aria-controls="instructions-content">
+            Instructions
+          </button>
+        </h3>
+        <div id="instructions-content" class="usa-accordion__content">
+          <p style="margin: 0; font-size: 1.6rem;">Get your UX license for only $5000 or More!</p>
+        </div>
+      </div>
+
+      <!-- Document Upload Blue Bar Container -->
+      <div class="preview-container" style="margin-bottom: 4rem;">
+        <div class="preview-container__header">Document Upload</div>
+        <div class="preview-container__body">
+          <p style="font-size: 1.6rem; margin: 0 0 1rem;">Please upload your reference document</p>
+          <p style="font-size: 1.6rem; font-weight: 700; margin: 0 0 2rem;">File size and type limitations per attachment: 50 MB for txt, csv, png, jpg, jpeg, pdf, doc, xls, docx, xlsx</p>
+
+          <!-- Upload form gray container -->
+          <div style="background-color: #dfe1e2; padding: 2.4rem;">
+
+            <div class="usa-form-group" style="margin-bottom: 2rem;">
+              <label class="usa-label" for="reference-doc">Reference Document <span class="field-required">Required</span></label>
+              <input class="usa-input" id="reference-doc" name="reference-doc" type="text" readonly style="max-width: 50%;" />
+            </div>
+
+            <div class="usa-form-group" style="margin-bottom: 0.4rem;">
+              <label class="usa-label" for="doc-notes">Document Notes</label>
+              <textarea class="usa-textarea" id="doc-notes" name="doc-notes" maxlength="100" rows="4"
+                oninput="updateCount(this)" style="max-width: 50%;"></textarea>
+            </div>
+            <p id="doc-notes-count" style="font-size: 1.6rem; margin: 0 0 2rem;">100 of 100 remaining</p>
+
+            <!-- Hidden real file picker -->
+            <input type="file" id="file-picker" style="display: none;" />
+
+            <!-- Button states -->
+            <div id="upload-btn-state">
+              <button type="button" class="usa-button" id="upload-btn">Upload</button>
+            </div>
+            <div id="save-cancel-btn-state" style="display: none; gap: 1rem; display: none;">
+              <button type="button" class="usa-button" id="save-btn">Save</button>
+              <button type="button" class="usa-button usa-button--secondary" id="cancel-upload-btn">Cancel</button>
+            </div>
+            <div id="delete-btn-state" style="display: none;">
+              <button type="button" class="usa-button usa-button--secondary" id="delete-btn">Delete</button>
+            </div>
+
+          </div>
+        </div>
+      </div>
+
+      <!-- Action Buttons -->
+      <div class="form-actions">
+        <button type="button" class="usa-button usa-button--secondary">Cancel</button>
+        <div style="display: flex; gap: 1rem;">
+          <button type="button" class="usa-button usa-button--outline" onclick="window.location.href='fees.html'">Back</button>
+          <button type="button" class="usa-button" onclick="window.location.href='information-summary.html'">Next</button>
+        </div>
+      </div>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="constituent-footer">
+      <p>Agency Name</p>
+      <p><a href="tel:9858858441">(985) 885-8441</a></p>
+      <p><a href="mailto:lisa.benavides@egov.com">lisa.benavides@egov.com</a></p>
+    </footer>
+
+  </div>
+
+  <script>
+    function updateCount(textarea) {
+      var remaining = 100 - textarea.value.length;
+      document.getElementById('doc-notes-count').textContent = remaining + ' of 100 remaining';
+    }
+
+    var filePicker = document.getElementById('file-picker');
+    var refDocInput = document.getElementById('reference-doc');
+    var uploadState = document.getElementById('upload-btn-state');
+    var saveCancelState = document.getElementById('save-cancel-btn-state');
+    var deleteState = document.getElementById('delete-btn-state');
+
+    function showState(state) {
+      uploadState.style.display = state === 'upload' ? 'block' : 'none';
+      saveCancelState.style.display = state === 'save-cancel' ? 'flex' : 'none';
+      deleteState.style.display = state === 'delete' ? 'block' : 'none';
+    }
+
+    // Upload clicked — open file picker
+    document.getElementById('upload-btn').addEventListener('click', function () {
+      filePicker.click();
+    });
+
+    // File selected — populate input, show Save/Cancel
+    filePicker.addEventListener('change', function () {
+      if (filePicker.files.length > 0) {
+        refDocInput.value = filePicker.files[0].name;
+        showState('save-cancel');
+      }
+    });
+
+    // Save clicked — show Delete, disable notes
+    document.getElementById('save-btn').addEventListener('click', function () {
+      document.getElementById('doc-notes').disabled = true;
+      showState('delete');
+    });
+
+    // Cancel clicked — clear and return to Upload
+    document.getElementById('cancel-upload-btn').addEventListener('click', function () {
+      refDocInput.value = '';
+      filePicker.value = '';
+      showState('upload');
+    });
+
+    // Delete clicked — clear, re-enable notes, return to Upload
+    document.getElementById('delete-btn').addEventListener('click', function () {
+      refDocInput.value = '';
+      filePicker.value = '';
+      document.getElementById('doc-notes').disabled = false;
+      showState('upload');
+    });
+
+    // Step indicator navigation
+    var stepPages = ['index.html', 'questions.html', 'fees.html', 'document-upload.html', 'information-summary.html', 'photo-id.html', 'electronic-signature.html'];
+    document.querySelectorAll('.usa-step-indicator__segment').forEach(function (segment, i) {
+      if (stepPages[i]) {
+        segment.style.cursor = 'pointer';
+        segment.addEventListener('click', function () { window.location.href = stepPages[i]; });
+      }
+    });
+
+    // Accordion toggle
+    document.querySelectorAll('.usa-accordion__button').forEach(function (button) {
+      button.addEventListener('click', function () {
+        var expanded = this.getAttribute('aria-expanded') === 'true';
+        var content = document.getElementById(this.getAttribute('aria-controls'));
+        if (expanded) {
+          this.setAttribute('aria-expanded', 'false');
+          content.setAttribute('hidden', '');
+        } else {
+          this.setAttribute('aria-expanded', 'true');
+          content.removeAttribute('hidden');
+        }
+      });
+    });
+  </script>
+</body>
+
+</html>
