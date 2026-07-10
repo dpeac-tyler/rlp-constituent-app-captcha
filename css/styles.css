@@ -783,6 +783,14 @@ select:focus {
   border-color: #1a4480;
 }
 
+.usa-select:disabled,
+.usa-input:disabled {
+  background-color: #c9c9c9;
+  color: #454545;
+  cursor: not-allowed;
+  border-color: #adadad;
+}
+
 .usa-textarea {
   font-family: "Public Sans Web", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
   font-size: 1.6rem;
